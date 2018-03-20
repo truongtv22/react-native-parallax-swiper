@@ -28,6 +28,11 @@ class ParallaxSwiper extends Component {
     this.scrollToIndex(nextProps.scrollToIndex);
   }
 
+  onScrollBegin(e) {
+    const { onScrollBeginDrag } = this.props;
+    onScrollBeginDrag && onScrollBeginDrag(e);
+  }
+
   onScrollEnd(e) {
     const { vertical, onMomentumScrollEnd } = this.props;
     const contentOffset = vertical
@@ -112,6 +117,7 @@ class ParallaxSwiper extends Component {
           )}
           showsVerticalScrollIndicator={showsVerticalScrollIndicator}
           showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+          onScrollBeginDrag={e => this.onScrollBegin(e)}
           onMomentumScrollEnd={e => this.onScrollEnd(e)}
         >
           {React.Children.map(children, (child, i) => {
